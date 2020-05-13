@@ -17,6 +17,11 @@ import { createMqttClient } from "./mqtt-client";
 import { createScrubber } from "./scrubber";
 
 async function run() {
+  let scrubber = createScrubber();
+
+  /**
+   * mqtt client
+   */
   let mqttClientConfig = {
     hostUrl: process.env.SOLACE_MQTT_HOST_URL,
     options: {
@@ -24,50 +29,17 @@ async function run() {
       password: process.env.SOLACE_PASSWORD,
     },
   };
-
   let mqttClient = createMqttClient(mqttClientConfig);
-
   try {
     mqttClient = await mqttClient.connect();
   } catch (err) {
     console.error(err);
   }
 
-  let scrubber = createScrubber(mqttClient.publish);
-
-  // create partially applied handlers for the event flows this service is interested in
-  let handleCardTransactionAuthorizedEvent = scrubber.createCardTransactionEventHandler(
-    "*/PII/CardTransactions/Authorized"
-  );
-  let handleCardTransactionSettledEvent = scrubber.createCardTransactionEventHandler(
-    "*/PII/CardTransactions/Settled"
-  );
-  let handleCardTransactionDeclinedEvent = scrubber.createCardTransactionEventHandler(
-    "*/PII/CardTransactions/Declined"
-  );
-
-  // set up topic subscriptions to attract relevant event flows
-  try {
-    await mqttClient.subscribe(
-      "*/PII/CardTransactions/Authorized",
-      options,
-      handleCardTransactionAuthorizedEvent
-    );
-    await mqttClient.subscribe(
-      "*/PII/CardTransactions/Settled",
-      options,
-      handleCardTransactionSettledEvent
-    );
-    await mqttClient.subscribe(
-      "*/PII/CardTransactions/Declined",
-      options,
-      handleCardTransactionDeclinedEvent
-    );
-  } catch (err) {
-    // could handle re-try logic here, but don't need to for this demo
-    console.error(err);
-    process.exit(1);
-  }
+  /**
+   * configure topic subscriptions
+   */
+  await mqttClient.subscribe(topic, options, handler);
 
   // run until sigint
   console.log("Running until a SIGINT signal is received...");
@@ -79,7 +51,6 @@ async function run() {
   });
 }
 
-// start sequence
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log(new Date().toLocaleTimeString());
