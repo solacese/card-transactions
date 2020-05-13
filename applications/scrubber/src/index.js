@@ -27,11 +27,10 @@ async function run() {
 
   let mqttClient = createMqttClient(mqttClientConfig);
 
-  try {
-    mqttClient = await mqttClient.connect();
-  } catch (err) {
-    console.error(err);
-  }
+  mqttClient = await mqttClient.connect().catch(() => {
+    // handle retry logic here, for this demo just blow up if connection fails
+    process.exit(1);
+  });
 
   let scrubber = createScrubber(mqttClient.publish);
 

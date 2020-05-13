@@ -1,7 +1,7 @@
 {
-  "name": "scrubber",
+  "name": "card-transactions-publisher",
   "version": "1.0.0",
-  "description": "processor that scrubs raw card transactions and publishes them on a separate topic",
+  "description": "publishes random raw card transactions on specified interval in .env file",
   "main": "src/index.js",
   "author": "Andrew Roberts",
   "license": "MIT",
@@ -21,6 +21,7 @@
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
     "immer": "^5.3.6",
+    "kafka-node": "^5.0.0",
     "mqtt": "^3.0.0",
     "regenerator-runtime": "^0.13.3"
   }

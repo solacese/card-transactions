@@ -1,0 +1,16 @@
+{
+  "amount": { "type": "string" },
+  "currency": { "type": "string" },
+  "status": { "type": "string" },
+  "account_id": { "type": "string" },
+  "pos": {
+    "type": "object",
+    "properties": {
+      "merchant": { "type": "string" },
+      "country": { "type": "string" },
+      "region": { "type": "string" },
+      "postalCode": { "type": "string" },
+      "phoneNumber": { "type": "string" }
+    }
+  }
+}

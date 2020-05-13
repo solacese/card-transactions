@@ -13,33 +13,26 @@ if (result.error) {
   throw result.error;
 }
 // app modules
-import { createMqttClient } from "./mqtt-client";
-import { createScrubber } from "./scrubber";
+import { createKafkaProducer } from "./kafka-producer";
+import { createCardTransactionPublisher } from "./card-transaction-publisher";
 
 async function run() {
-  let scrubber = createScrubber();
-
-  /**
-   * mqtt client
-   */
-  let mqttClientConfig = {
-    hostUrl: process.env.SOLACE_MQTT_HOST_URL,
-    options: {
-      username: process.env.SOLACE_USERNAME,
-      password: process.env.SOLACE_PASSWORD,
-    },
+  const kafkaConfig = {
+    kafkaHost: `${process.env.KAFKA_HOST_URL}:${process.env.KAFKA_PORT}`,
   };
-  let mqttClient = createMqttClient(mqttClientConfig);
-  try {
-    mqttClient = await mqttClient.connect();
-  } catch (err) {
-    console.error(err);
-  }
 
-  /**
-   * configure topic subscriptions
-   */
-  await mqttClient.subscribe(topic, options, handler);
+  let kafkaProducer = createKafkaProducer(kafkaConfig);
+
+  kafkaProducer = await kafkaProducer.connect().catch(() => {
+    // handle retry logic here, for this demo just blow up if connection fails
+    process.exit(1);
+  });
+
+  let cardTransactionPublisher = createCardTransactionPublisher(
+    kafkaProducer.send
+  );
+
+  cardTransactionPublisher.start();
 
   // run until sigint
   console.log("Running until a SIGINT signal is received...");
@@ -54,6 +47,6 @@ async function run() {
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log(new Date().toLocaleTimeString());
-console.log("Starting scrubber...");
+console.log("Starting card transaction publisher...");
 
 run();

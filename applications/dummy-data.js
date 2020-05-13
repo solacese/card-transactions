@@ -203,32 +203,5 @@ let dummyMerchants = [
   },
 ];
 
-// based off: https://developer.intuit.com/app/developer/qbpayments/docs/develop/tutorials/process-a-credit-transaction
-let dummyCardTransaction = {
-  card: {
-    expYear: "2017",
-    expMonth: "03",
-    address: {
-      region: "NJ",
-      postalCode: "07079",
-      streetAddress: "350 Mountain View Dr.",
-      country: "US",
-      city: "South Orange",
-    },
-    name: "Pye's Cakes",
-    cvc: "123",
-    number: "4111111111111111",
-  },
-  transaction: {
-    amount: "80.00",
-    currency: "USD",
-    location: {
-      region: "NJ",
-      postalCode: "07079",
-      streetAddress: "350 Mountain View Dr.",
-      country: "US",
-      city: "South Orange",
-    },
-  },
-  status: "AUTHORIZED",
-};
+exports.dummyCreditCards = dummyCreditCards;
+exports.dummyMerchants = dummyMerchants;

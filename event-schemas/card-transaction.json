@@ -1,0 +1,35 @@
+{
+  "amount": { "type": "string" },
+  "currency": { "type": "string" },
+  "status": { "type": "string" },
+  "card": {
+    "type": "object",
+    "properties": {
+      "expYear": { "type": "string" },
+      "expMonth": { "type": "string" },
+      "address": {
+        "type": "object",
+        "properties": {
+          "region": { "type": "string" },
+          "postalCode": { "type": "string" },
+          "streetAddress": { "type": "string" },
+          "country": { "type": "string" },
+          "city": { "type": "string" }
+        }
+      },
+      "name": { "type": "string" },
+      "cvc": { "type": "string" },
+      "number": { "type": "string" }
+    }
+  },
+  "pos": {
+    "type": "object",
+    "properties": {
+      "merchant": { "type": "string" },
+      "country": { "type": "string" },
+      "region": { "type": "string" },
+      "postalCode": { "type": "string" },
+      "phoneNumber": { "type": "string" }
+    }
+  }
+}
