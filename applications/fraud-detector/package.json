@@ -1,7 +1,7 @@
 {
-  "name": "scrubber",
+  "name": "fraud-detector",
   "version": "1.0.0",
-  "description": "processor that scrubs raw card transactions and publishes them on an enhanced Solace topic",
+  "description": "processor that runs super secret machine learning algorithms on scrubbed card transactions and publishes random **errmmmmm*** very accurate suspicious activity alerts",
   "main": "src/index.js",
   "author": "Andrew Roberts",
   "license": "MIT",

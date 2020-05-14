@@ -43,7 +43,7 @@ export function createCardTransactionPublisher(send) {
 
     // return dummy card transaction object
     return {
-      amount: randomAmount,
+      amount: `${randomAmount}.00`,
       currency: "USD",
       status: randomStatus,
       card: randomCard,

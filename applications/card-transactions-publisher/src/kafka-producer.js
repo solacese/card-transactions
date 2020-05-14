@@ -10,7 +10,6 @@ import kafka from "kafka-node";
  * A factory function that returns a client object that wraps kafka-node.
  * If kafkaHost or options are not provided, the client will attempt to
  * connect using sensible defaults.
- * @param {string} hostUrl
  * @param {*} options
  */
 export function createKafkaProducer({
@@ -122,7 +121,7 @@ export function createKafkaProducer({
    */
   function logInfo(message) {
     const log = {
-      time: new Date().toISOString,
+      time: new Date().toISOString(),
       msg: message,
     };
     console.log(JSON.stringify(log));

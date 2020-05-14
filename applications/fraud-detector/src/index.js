@@ -1,5 +1,5 @@
 /**
- * scrubber/index.js
+ * fraud-detector/index.js
  * @author Andrew Roberts
  */
 
@@ -14,7 +14,7 @@ if (result.error) {
 }
 // app modules
 import { createMqttClient } from "./mqtt-client";
-import { createScrubber } from "./scrubber";
+import { createFraudDetector } from "./fraud-detector";
 
 async function run() {
   let mqttClientConfig = {
@@ -32,14 +32,14 @@ async function run() {
     process.exit(1);
   });
 
-  let scrubber = createScrubber(mqttClient.publish);
+  let fraudDetector = createFraudDetector(mqttClient.publish);
 
   // set up topic subscriptions to attract relevant event flows
   try {
     await mqttClient.subscribe(
-      "PII/CardTransaction",
+      "+/Scrubbed/CardTransaction/+",
       { qos: 1 },
-      scrubber.cardTransactionEventHandler
+      fraudDetector.scrubbedCardTransactionEventHandler
     );
   } catch (err) {
     // could handle re-try logic here, but don't need to for this demo
@@ -61,6 +61,6 @@ async function run() {
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log(new Date().toLocaleTimeString());
-console.log("Starting scrubber...");
+console.log("Starting fraud detector...");
 
 run();

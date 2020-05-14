@@ -1,5 +1,5 @@
 /**
- * scrubber/index.js
+ * trend-detector/index.js
  * @author Andrew Roberts
  */
 
@@ -14,7 +14,7 @@ if (result.error) {
 }
 // app modules
 import { createMqttClient } from "./mqtt-client";
-import { createScrubber } from "./scrubber";
+import { createTrendDetector } from "./trend-detector";
 
 async function run() {
   let mqttClientConfig = {
@@ -32,14 +32,19 @@ async function run() {
     process.exit(1);
   });
 
-  let scrubber = createScrubber(mqttClient.publish);
+  let trendDetector = createTrendDetector(mqttClient.publish);
 
-  // set up topic subscriptions to attract relevant event flows
+  // set up topic subscriptions to attract relevant event flows (no declined!)
   try {
     await mqttClient.subscribe(
-      "PII/CardTransaction",
+      "+/Scrubbed/CardTransaction/Authorized",
       { qos: 1 },
-      scrubber.cardTransactionEventHandler
+      trendDetector.scrubbedCardTransactionEventHandler
+    );
+    await mqttClient.subscribe(
+      "+/Scrubbed/CardTransaction/Settled",
+      { qos: 1 },
+      trendDetector.scrubbedCardTransactionEventHandler
     );
   } catch (err) {
     // could handle re-try logic here, but don't need to for this demo
@@ -61,6 +66,6 @@ async function run() {
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log("+-+-+-+-+-+-+-+-+-+-+-+-+-+");
 console.log(new Date().toLocaleTimeString());
-console.log("Starting scrubber...");
+console.log("Starting trend detector...");
 
 run();
