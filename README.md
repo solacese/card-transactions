@@ -12,9 +12,12 @@ This is an end-to-end demo that implements some contrived event flows related to
 
 https://console.solace.cloud/event-designer/domains/32utcxr6mf2p
 
-## Diagrams
+## Event Portal Application Domain Graph
 
 ![event portal diagram](./docs/event-portal-diagram.png "event portal diagram")
+
+## Architecture Diagram
+
 ![architecture diagram](./docs/architecture-diagram.png "architecture diagram")
 
 ## Staging the demo environment
