@@ -1,13 +1,12 @@
 # scrubber
 
-Processor microservice that scrubs raw card transactions of PII.
+Node.js application that transforms raw card transactions into scrubbed card transactions by removing PII.
 
-Topic subscriptions:
+## Getting started
 
-- `KafkaSinkConnector/CardTransaction/[ Authorized, Settled, Declined ]`
+cd to this `scrubber` directory and then run:
 
-Events published:
-
-- ScrubbedCardTransactionAuthorized: `Scrubber/CardTransactionAuthorized`
-- ScrubbedCardTransactionSettled: `Scrubber/CardTransactionSettled`
-- ScrubbedCardTransactionDeclined: `Scrubber/CardTransactionDeclined`
+```sh
+npm i
+npm run start
+```

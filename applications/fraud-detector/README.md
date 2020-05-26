@@ -1,13 +1,12 @@
-# scrubber
+# fraud-detector
 
-Processor microservice that scrubs raw card transactions of PII.
+Node.js application that acts processes scrubbed card transactions and arbitrarily marks some as fradulent and publishes a corresponding event.
 
-Topic subscriptions:
+## Getting started
 
-- `KafkaSinkConnector/CardTransaction/[ Authorized, Settled, Declined ]`
+cd to this `fraud-detector` directory and then run:
 
-Events published:
-
-- ScrubbedCardTransactionAuthorized: `Scrubber/CardTransactionAuthorized`
-- ScrubbedCardTransactionSettled: `Scrubber/CardTransactionSettled`
-- ScrubbedCardTransactionDeclined: `Scrubber/CardTransactionDeclined`
+```sh
+npm i
+npm run start
+```

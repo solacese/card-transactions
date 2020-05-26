@@ -2,12 +2,11 @@
 
 Node.js application that uses kafka-node to publish credit card transactions to Kafka.
 
-Topic subscriptions:
+## Getting started
 
-- `KafkaSinkConnector/CardTransaction/[ Authorized, Settled, Declined ]`
+cd to this `card-transactions-publisher` directory and then run:
 
-Events published:
-
-- ScrubbedCardTransactionAuthorized: `Scrubber/CardTransactionAuthorized`
-- ScrubbedCardTransactionSettled: `Scrubber/CardTransactionSettled`
-- ScrubbedCardTransactionDeclined: `Scrubber/CardTransactionDeclined`
+```sh
+npm i
+npm run start
+```
