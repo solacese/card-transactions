@@ -29,7 +29,7 @@ When you have Kafka up and running, create a new topic using a more descriptive 
 bin/kafka-topics.sh --create --bootstrap-server localhost:9092 --replication-factor 1 --partitions 1 --topic card-transaction
 ```
 
-Make these associated change in your connector's `solace_sink.properties`:
+Make these associated change in the `etc/solace_sink.properties` of the PubSub+ Kafka Sink Connector:
 
 ```sh
 topics=card-transaction
@@ -38,14 +38,21 @@ sol.topics=PII/CardTransaction
 
 ## Running the applications
 
-This demo includes four small Node.js applications that do some basic transformations and phony business logic to make the event flows look real
+First, clone the repo and cd into its root directory:
+
+```
+git clone https://github.com/solacese/card-transactions.git
+cd card-transactions
+```
+
+If you look at the contents of the [applications directory](./applications), you'll find four small Node.js applications that do some basic transformations and phony business logic to make the event flows look real:
 
 - [card-transactions-publisher](./applications/card-transactions-publisher)
 - [scrubber](./applications/scrubber)
 - [fraud-detector](./applications/fraud-detector)
 - [trend-detector](./applications/trend-detector)
 
-There's a README in each of these `applications` folders, but all the getting started instructions are the same:
+There's a README for each application, but they're all pretty much the same:
 
 ```
 cd <application directory>

@@ -1,6 +1,6 @@
-# scrubber
+# card-transactions-publisher
 
-Processor microservice that scrubs raw card transactions of PII.
+Node.js application that uses kafka-node to publish credit card transactions to Kafka.
 
 Topic subscriptions:
 
