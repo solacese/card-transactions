@@ -34,15 +34,10 @@ async function run() {
 
   let trendDetector = createTrendDetector(mqttClient.publish);
 
-  // set up topic subscriptions to attract relevant event flows (no declined!)
+  // set up topic subscriptions to attract relevant event flows (only authorized—removes dupes with settled and useless declines!)
   try {
     await mqttClient.subscribe(
       "+/Scrubbed/CardTransaction/Authorized",
-      { qos: 1 },
-      trendDetector.scrubbedCardTransactionEventHandler
-    );
-    await mqttClient.subscribe(
-      "+/Scrubbed/CardTransaction/Settled",
       { qos: 1 },
       trendDetector.scrubbedCardTransactionEventHandler
     );
