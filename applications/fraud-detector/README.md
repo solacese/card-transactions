@@ -1,6 +1,6 @@
 # fraud-detector
 
-Node.js application that acts processes scrubbed card transactions and arbitrarily marks some as fradulent and publishes a corresponding event.
+Node.js application that processes scrubbed card transactions and arbitrarily marks some as fradulent and publishes a corresponding event.
 
 ## Getting started
 
