@@ -20,7 +20,7 @@
   "dependencies": {
     "core-js": "^3.6.4",
     "dotenv": "^8.2.0",
-    "immer": "^5.3.6",
+    "immer": "^8.0.1",
     "mqtt": "^3.0.0",
     "regenerator-runtime": "^0.13.3"
   }
